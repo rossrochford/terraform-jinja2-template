@@ -15,7 +15,7 @@ resource "local_file" script {
   content  = data.external.template_script.result.rendered_result
 
   filename = var.output_filepath
-  depends_on = [external.template_script]
+  depends_on = [data.external.template_script]
 }
 
 
