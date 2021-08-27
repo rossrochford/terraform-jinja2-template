@@ -13,6 +13,9 @@ variable "template_string" {
 # map of values, these will be json serialized
 variable "template_variables" {}
 
+variable "base64" {
+  default = false
+}
 
 variable "output_filepath" {
   # optionally write result to a local file

@@ -1,3 +1,4 @@
+import base64
 import json
 import os
 import sys
@@ -20,7 +21,14 @@ def do_template_render__string(template_str, data):
     return rtemplate.render(**data)
 
 
-def main(stdin, template_filepath):
+def _base64_encode(st):
+    st_bytes = st.encode("ascii")
+    base64_bytes = base64.b64encode(st_bytes)
+    base64_string = base64_bytes.decode("ascii")
+    return base64_string
+
+
+def main(stdin):
     di = json.loads(stdin)
 
     ctx_data = json.loads(di['template_variables_json'])
@@ -28,10 +36,13 @@ def main(stdin, template_filepath):
     if len(di['template_string']) > 0:
         st = do_template_render__string(di['template_string'], ctx_data)
     else:
-        st = do_template_render__file(template_filepath, ctx_data)
+        st = do_template_render__file(di['template_filepath'], ctx_data)
+
+    if di['base64']:
+        st = _base64_encode(st)
 
     print(json.dumps({"rendered_result": st}))
 
 
 if __name__ == '__main__':
-    main(sys.stdin.read(), sys.argv[1])
+    main(sys.stdin.read())
