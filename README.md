@@ -2,6 +2,8 @@
 
 Terraform module for rendering jinja2 templates
 
+note: this modules assumes you have python3 and jinja2 installed system-wide.
+
 ### Usage:
 ```hcl
 module "cloud-init-example-1" {
