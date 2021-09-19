@@ -31,6 +31,9 @@ def _base64_encode(st):
 def main(stdin):
     di = json.loads(stdin)
 
+    assert di['base64'] in ('true', 'false')
+    encode_as_base64 = True if di['base64'] == 'true' else False
+
     ctx_data = json.loads(di['template_variables_json'])
 
     if len(di['template_string']) > 0:
@@ -38,7 +41,7 @@ def main(stdin):
     else:
         st = do_template_render__file(di['template_filepath'], ctx_data)
 
-    if di['base64']:
+    if encode_as_base64:
         st = _base64_encode(st)
 
     print(json.dumps({"rendered_result": st}))
