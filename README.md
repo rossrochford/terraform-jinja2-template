@@ -10,7 +10,7 @@ module "cloud-init-example-1" {
 
   source = "github.com/rossrochford/terraform-jinja2-template.git"
 
-  template_filepath = "/home/ross/code/hashi_cluster/jinja_module_tf/cloud_init.tmpl"
+  template_filepath = "/home/me/cloud_init.tmpl"
   template_variables = {
     node_name = "traefik-1"
     node_type = "traefik"
@@ -42,7 +42,7 @@ EOT
 }
 
 
-output "result" {
+output "result_1" {
   value = module.cloud-init-example-1.rendered
 }
 ```
